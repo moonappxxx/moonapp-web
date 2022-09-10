@@ -1,0 +1,32 @@
+.wrapper {
+  padding: 2rem;
+  text-align: center;
+}
+
+.button {
+  padding: 1rem 2rem;
+  background: pink;
+  border-radius: 4px;
+  display: inline-flex;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.wallet {
+  display: inline-flex;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+  border-radius: 4px;
+
+  .balance {
+    padding: 8px 16px;
+    border-right: 1px solid var(--color-primary);
+    background: var(--color-primary);
+    color: var(--color-text);
+  }
+
+  .address {
+    padding: 8px 16px;
+  }
+}

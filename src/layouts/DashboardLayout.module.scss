@@ -1,0 +1,41 @@
+.wrapper {
+  background-image: url(https://static.tildacdn.com/tild3131-6561-4237-b964-616363376665/Asset_2.svg);
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+.scrollable {
+  padding: 96px 0;
+  height: 100%;
+  overflow: auto;
+}
+
+.container {
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 700;
+  text-align: center;
+  margin: 0 0 48px;
+}
+
+.connect-wallet {
+  margin: 0 0 48px;
+}
+
+.footer {
+  padding: 96px 0 0;
+  .container {
+  }
+  .copyright {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+}

@@ -1,0 +1,44 @@
+
+
+.claim {
+  background: #1e2024;
+  border-radius: 8px;
+  padding: 36px 48px;
+  box-shadow: 0 2px 15px rgba(var(--color-primary-rgb), 0.05);
+
+  &-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 0 24px;
+
+    .ticker {
+      font-size: 21px;
+      font-weight: 700;
+    }
+  }
+
+  &-body {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 0 24px;
+
+    .locked-tokens {
+      &-title {
+        font-size: 12px;
+        margin: 0 0 4px;
+      }
+      &-value {
+
+      }
+    }
+  }
+
+  &-footer {
+    .note {
+      text-align: center;
+      font-size: 13px;
+    }
+  }
+}
