@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useWeb3React } from "@web3-react/core";
 import { UserRejectedRequestError } from "@web3-react/injected-connector";
 
+import { env } from "../../env/client.mjs";
+
 import useMetaMaskOnboarding from "../../hooks/useMetaMaskOnboarding";
 import useENSName from "../../hooks/useENSName";
 import useTokenBalance from "../../hooks/useTokenBalance";
@@ -18,9 +20,6 @@ import styles from "./ConnectWallet.module.scss";
 
 type OwnProps = {};
 
-const tokenAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
-const symbol = "$XXX";
-
 const ConnectWallet: React.FC<OwnProps> = () => {
   const { active, error, activate, chainId, account, setError, library } =
     useWeb3React();
@@ -32,7 +31,10 @@ const ConnectWallet: React.FC<OwnProps> = () => {
     stopOnboarding,
   } = useMetaMaskOnboarding();
 
-  const { data: tokenBalance } = useTokenBalance(account || null, tokenAddress);
+  const { data: tokenBalance } = useTokenBalance(
+    account || null,
+    env.NEXT_PUBLIC_TOKEN_ADDRESS,
+  );
 
   // manage connecting state for injected connector
   const [connecting, setConnecting] = useState(false);
@@ -63,10 +65,6 @@ const ConnectWallet: React.FC<OwnProps> = () => {
 
   const ENSName = useENSName(account || undefined);
 
-  if (error) {
-    return null;
-  }
-
   return (
     <div className={styles.wrapper}>
       {typeof account !== "string" ? (
@@ -95,7 +93,8 @@ const ConnectWallet: React.FC<OwnProps> = () => {
       ) : (
         <div className={styles.wallet}>
           <div className={styles.balance}>
-            {`${symbol} Balance`}: {tokenBalance ?? 0}
+            {`${env.NEXT_PUBLIC_TOKEN_SYMBOL} Balance`}:{" "}
+            {parseBalance(tokenBalance, 18, 2) ?? 0}
           </div>
           <Link
             href={

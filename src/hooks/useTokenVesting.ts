@@ -22,9 +22,10 @@ const useTokenVesting = (vestingAddress: string, tokenAddress: string) => {
     async () => {
       if (!vestingContract || !tokenAddress) return 0;
 
-      const vestedAmount = await vestingContract.vestedAmount(tokenAddress);
+      const amount = await vestingContract.vestedAmount(tokenAddress);
+      if (!amount) return 0;
 
-      return formatUnits(vestedAmount, 0);
+      return formatUnits(amount, 0);
     },
     {
       enabled: shouldFetch,
@@ -40,9 +41,29 @@ const useTokenVesting = (vestingAddress: string, tokenAddress: string) => {
     async () => {
       if (!vestingContract || !tokenAddress) return 0;
 
-      const vestedAmount = await vestingContract.releasableAmount(tokenAddress);
+      const amount = await vestingContract.releasableAmount(tokenAddress);
+      if (!amount) return 0;
 
-      return formatUnits(vestedAmount, 0);
+      return formatUnits(amount, 0);
+    },
+    {
+      enabled: shouldFetch,
+    },
+  );
+
+  const {
+    data: lockedAmount,
+    status: lockedAmountStatus,
+    refetch: refetchLockedAmount,
+  } = useQuery(
+    ["locked-amount", vestingAddress, tokenAddress],
+    async () => {
+      if (!vestingContract || !tokenAddress) return 0;
+
+      const amount = await vestingContract.lockedAmount(tokenAddress);
+      if (!amount) return 0;
+
+      return formatUnits(amount, 0);
     },
     {
       enabled: shouldFetch,
@@ -56,7 +77,9 @@ const useTokenVesting = (vestingAddress: string, tokenAddress: string) => {
     },
     {
       onSuccess: () => {
+        console.log("success");
         refetchReleasableAmount();
+        refetchLockedAmount();
       },
     },
   );
@@ -64,13 +87,16 @@ const useTokenVesting = (vestingAddress: string, tokenAddress: string) => {
   const isLoading =
     releasing ||
     releasableAmountStatus === "loading" ||
+    lockedAmountStatus === "loading" ||
     vestedAmountStatus === "loading";
 
   return {
     isLoading,
-    vestedAmount,
+    vestedAmount: vestedAmount || 0,
     refetchVestedAmount,
-    releasableAmount,
+    lockedAmount: lockedAmount || 0,
+    refetchLockedAmount,
+    releasableAmount: releasableAmount || 0,
     refetchReleasableAmount,
     releaseTokens,
   };

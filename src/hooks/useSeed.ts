@@ -17,36 +17,45 @@ const useTokenVesting = (seedAddress: string, account?: string | null) => {
       async () => {
         if (!seedContract || !account) return 0;
 
-        const vestingAddress = await seedContract.getInvestorVestingAddress(
-          account,
-        );
+        try {
+          const vestingAddress = await seedContract.getInvestorVestingAddress(
+            account,
+          );
 
-        return vestingAddress;
+          return vestingAddress;
+        } catch (error) {
+          return "";
+        }
       },
       {
         enabled: shouldFetch,
       },
     );
 
-  const { data: accountBalance, refetch: refetchAccountBalance } = useQuery(
-    ["investor-balance", seedAddress, account],
-    async () => {
-      if (!seedContract || !account) return 0;
+  const { data: investorTokensAmount, refetch: refetchInvestorTokensAmount } =
+    useQuery(
+      ["investor-balance", seedAddress, account],
+      async () => {
+        if (!seedContract || !account) return 0;
 
-      const balance = await seedContract.getInvestorBalance(account);
+        try {
+          const balance = await seedContract.getInvestorTokensAmount(account);
 
-      return formatUnits(balance, 0);
-    },
-    {
-      enabled: shouldFetch,
-    },
-  );
+          return formatUnits(balance, 0);
+        } catch (error) {
+          return 0;
+        }
+      },
+      {
+        enabled: shouldFetch,
+      },
+    );
 
   return {
     accountVestingAddress,
     refetchAccountVestingAddress,
-    accountBalance,
-    refetchAccountBalance,
+    investorTokensAmount,
+    refetchInvestorTokensAmount,
   };
 };
 
