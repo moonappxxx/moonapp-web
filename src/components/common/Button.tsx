@@ -19,7 +19,7 @@ type ButtonSize = "default" | "small" | "medium" | "large";
 type ButtonProps = {
   children?: any;
   className?: string;
-  type?: string;
+  type?: "button" | "submit" | "reset";
   title?: string;
   size?: ButtonSize;
   color?: ButtonColor;
@@ -41,7 +41,7 @@ const Button: React.FC<ButtonProps> = ({
     className={clsx(styles.button, className, {
       [styles[size]]: !!size,
       [styles[color]]: !!color,
-      [styles.disabled]: disabled
+      [styles.disabled]: disabled,
     })}
     disabled={disabled}
     onClick={onClick}
@@ -52,5 +52,5 @@ const Button: React.FC<ButtonProps> = ({
   </button>
 );
 
-export { Button, };
+export { Button };
 export type { ButtonColor, ButtonSize };

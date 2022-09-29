@@ -8,7 +8,7 @@ export function shortenHex(hex: string, length = 4) {
   )}`;
 }
 
-const ETHERSCAN_PREFIXES = {
+const ETHERSCAN_PREFIXES: any = {
   1: "",
   3: "ropsten.",
   4: "rinkeby.",
