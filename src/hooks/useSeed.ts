@@ -39,9 +39,8 @@ const useTokenVesting = (seedAddress: string, account?: string | null) => {
         if (!seedContract || !account) return 0;
 
         try {
-          const balance = await seedContract.getInvestorTokensAmount(account);
-
-          return formatUnits(balance, 0);
+          const balance = await seedContract.getInvestorBalance(account);
+          return balance ?? 0;
         } catch (error) {
           return 0;
         }
@@ -54,7 +53,7 @@ const useTokenVesting = (seedAddress: string, account?: string | null) => {
   return {
     accountVestingAddress,
     refetchAccountVestingAddress,
-    investorTokensAmount,
+    investorTokensAmount: investorTokensAmount || 0,
     refetchInvestorTokensAmount,
   };
 };

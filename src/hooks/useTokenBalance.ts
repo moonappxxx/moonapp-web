@@ -22,7 +22,7 @@ export default function useTokenBalance(
     !!contract;
 
   const { data, error, ...rest } = useQuery(
-    ["TokenBalance", address, tokenAddress],
+    ["token-balance", address, tokenAddress],
     async () => {
       if (!contract || !address) return 0;
       return await getTokenBalance(contract, address);

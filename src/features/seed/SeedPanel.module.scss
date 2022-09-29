@@ -1,4 +1,28 @@
 
+.seed-cards {
+  margin: 0 0 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+
+.seed-card {
+  background: #1e2024;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 2px 15px rgba(var(--color-primary-rgb), 0.05);
+
+  .value {
+    font-size: 21px;
+    font-weight: 700;
+  }
+
+  .info {
+    margin: 4px 0 0;
+    font-size: 12px;
+    opacity: 0.9;
+  }
+}
 
 .claim {
   background: #1e2024;
@@ -28,9 +52,6 @@
       &-title {
         font-size: 12px;
         margin: 0 0 4px;
-      }
-      &-value {
-
       }
     }
   }

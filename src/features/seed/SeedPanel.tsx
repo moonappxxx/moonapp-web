@@ -15,27 +15,48 @@ import styles from "./SeedPanel.module.scss";
 const SeedPanel: React.FC = () => {
   const { account } = useWeb3React();
 
-  const { accountVestingAddress } = useSeed(
+  const { accountVestingAddress, investorTokensAmount } = useSeed(
     env.NEXT_PUBLIC_SEED_ADDRESS,
     account,
   );
 
-  const {
-    releasableAmount,
-    vestedAmount,
-    lockedAmount,
-    releaseTokens,
-    isLoading,
-  } = useTokenVesting(accountVestingAddress, env.NEXT_PUBLIC_TOKEN_ADDRESS);
+  const { balance, nextReleaseDate, releaseTokens, isLoading } =
+    useTokenVesting(accountVestingAddress, env.NEXT_PUBLIC_TOKEN_ADDRESS);
 
-  const releaseDisabled = releasableAmount == 0 || isLoading;
+  const releaseDisabled = balance?.releasableAmount == 0 || isLoading;
 
   return (
     <DashboardLayout>
+      <div className={styles["seed-cards"]}>
+        <div className={styles["seed-card"]}>
+          <div className={styles.value}>
+            {parseBalance(investorTokensAmount, 18, 2)}{" "}
+            {env.NEXT_PUBLIC_TOKEN_SYMBOL}
+          </div>
+          <div className={styles.info}>Total amount of tokens bought</div>
+        </div>
+        <div className={styles["seed-card"]}>
+          <div className={styles.value}>
+            {parseBalance(balance?.releasedAmount, 18, 2)}{" "}
+            {env.NEXT_PUBLIC_TOKEN_SYMBOL}
+          </div>
+          <div className={styles.info}>Amount of tokens claimed</div>
+        </div>
+        <div className={styles["seed-card"]}>
+          <div className={styles.value}>
+            {parseBalance(balance?.lockedAmount, 18, 2)}{" "}
+            {env.NEXT_PUBLIC_TOKEN_SYMBOL}
+          </div>
+          <div className={styles.info}>Amount of locked tokens left</div>
+        </div>
+      </div>
       <div className={styles.claim}>
         <div className={styles["claim-header"]}>
-          <div className={styles.ticker}>{env.NEXT_PUBLIC_TOKEN_SYMBOL}</div>
-
+          <div className={styles["locked-tokens-title"]}>
+            Available for claim:{" "}
+            {parseBalance(balance?.releasableAmount, 18, 2)}{" "}
+            {env.NEXT_PUBLIC_TOKEN_SYMBOL}
+          </div>
           <div className={styles["claim-title"]}>Moonapp Token Locked</div>
         </div>
         <div className={styles["claim-body"]}>
@@ -50,15 +71,16 @@ const SeedPanel: React.FC = () => {
               releaseTokens();
             }}
           >
-            Unlock {parseBalance(releasableAmount, 18, 2)}{" "}
+            Claim {parseBalance(balance?.releasableAmount, 18, 2)}{" "}
             {env.NEXT_PUBLIC_TOKEN_SYMBOL}
           </Button>
 
           <div className={styles["locked-tokens"]}>
-            <div className={styles["locked-tokens-title"]}>Locked tokens</div>
+            <div className={styles["locked-tokens-title"]}>
+              Next release date
+            </div>
             <div className={styles["locked-tokens-value"]}>
-              {parseBalance(lockedAmount, 18, 2)}{" "}
-              <span>{env.NEXT_PUBLIC_TOKEN_SYMBOL} locked</span>
+              {nextReleaseDate ?? "-"}
             </div>
           </div>
         </div>
