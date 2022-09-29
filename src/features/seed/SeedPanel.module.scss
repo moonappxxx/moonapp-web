@@ -4,6 +4,10 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 16px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .seed-card {
@@ -48,7 +52,7 @@
     justify-content: space-between;
     margin: 0 0 24px;
 
-    .locked-tokens {
+    .next-release {
       &-title {
         font-size: 12px;
         margin: 0 0 4px;
@@ -60,6 +64,24 @@
     .note {
       text-align: center;
       font-size: 13px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    &-header {
+      flex-direction: column-reverse;
+    }
+
+    &-title {
+      margin: 0 0 12px;
+    }
+
+    &-body {
+      flex-direction: column;
+
+      .next-release {
+        margin: 24px 0 0;
+      }
     }
   }
 }

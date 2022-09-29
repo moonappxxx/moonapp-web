@@ -75,11 +75,11 @@ const SeedPanel: React.FC = () => {
             {env.NEXT_PUBLIC_TOKEN_SYMBOL}
           </Button>
 
-          <div className={styles["locked-tokens"]}>
-            <div className={styles["locked-tokens-title"]}>
+          <div className={styles["next-release"]}>
+            <div className={styles["next-release-title"]}>
               Next release date
             </div>
-            <div className={styles["locked-tokens-value"]}>
+            <div className={styles["next-release-value"]}>
               {nextReleaseDate ?? "-"}
             </div>
           </div>
