@@ -1,5 +1,4 @@
 .wrapper {
-  padding: 2rem;
   text-align: center;
 }
 
@@ -9,7 +8,7 @@
   border-radius: 4px;
   display: inline-flex;
   border: none;
-  font-size: 14px;
+  font-size: 13px;
   cursor: pointer;
 }
 
@@ -18,16 +17,30 @@
   border: 1px solid var(--color-primary);
   color: var(--color-primary);
   border-radius: 4px;
+  position: relative;
+  margin: 0 44px 0 0;
 
   .balance {
-    padding: 8px 16px;
+    padding: 6px 12px;
     border-right: 1px solid var(--color-primary);
     background: var(--color-primary);
     color: var(--color-text);
   }
 
   .address {
-    padding: 8px 16px;
+    padding: 6px 12px;
+  }
+
+  .disconnect {
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    transform: translate(0, -50%);
+    margin-left: 8px;
+
+    padding: 0;
+    width: 36px;
+    height: 36px;
   }
 
   @media (max-width: 768px) {

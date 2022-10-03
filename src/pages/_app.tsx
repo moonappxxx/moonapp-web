@@ -2,19 +2,22 @@
 import { httpBatchLink } from "@trpc/client/links/httpBatchLink";
 import { loggerLink } from "@trpc/client/links/loggerLink";
 import { withTRPC } from "@trpc/next";
+import { ChakraProvider } from "@chakra-ui/react";
 import { Web3ReactProvider } from "@web3-react/core";
 import type { AppType } from "next/dist/shared/lib/utils";
 import superjson from "superjson";
 
-import getLibrary from '../getLibrary';
+import getLibrary from "../getLibrary";
 import type { AppRouter } from "../server/router";
 import "../styles/globals.scss";
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
-    <Web3ReactProvider getLibrary={getLibrary}>
-      <Component {...pageProps} />
-    </Web3ReactProvider>
+    <ChakraProvider>
+      <Web3ReactProvider getLibrary={getLibrary}>
+        <Component {...pageProps} />
+      </Web3ReactProvider>
+    </ChakraProvider>
   );
 };
 

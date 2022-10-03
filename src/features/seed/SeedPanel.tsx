@@ -57,7 +57,6 @@ const SeedPanel: React.FC = () => {
             {parseBalance(balance?.releasableAmount, 18, 2)}{" "}
             {env.NEXT_PUBLIC_TOKEN_SYMBOL}
           </div>
-          <div className={styles["claim-title"]}>Moonapp Token Locked</div>
         </div>
         <div className={styles["claim-body"]}>
           <Button

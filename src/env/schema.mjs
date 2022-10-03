@@ -18,6 +18,8 @@ export const clientSchema = zod.object({
   NEXT_PUBLIC_TOKEN_ADDRESS: zod.string(),
   NEXT_PUBLIC_TOKEN_SYMBOL: zod.string(),
   NEXT_PUBLIC_SEED_ADDRESS: zod.string(),
+  NEXT_PUBLIC_RPC_URL_1: zod.string(),
+  NEXT_PUBLIC_RPC_URL_5: zod.string(),
 });
 
 /**
@@ -30,4 +32,6 @@ export const clientEnv = {
   NEXT_PUBLIC_TOKEN_ADDRESS: process.env.NEXT_PUBLIC_MOONAPP_TOKEN_ADDRESS,
   NEXT_PUBLIC_TOKEN_SYMBOL: process.env.NEXT_PUBLIC_TOKEN_SYMBOL,
   NEXT_PUBLIC_SEED_ADDRESS: process.env.NEXT_PUBLIC_SEED_CONTRACT_ADDRESS,
+  NEXT_PUBLIC_RPC_URL_1: process.env.NEXT_PUBLIC_RPC_URL_1,
+  NEXT_PUBLIC_RPC_URL_5: process.env.NEXT_PUBLIC_RPC_URL_5,
 };
