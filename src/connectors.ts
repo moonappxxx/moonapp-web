@@ -15,7 +15,7 @@ const RPC_URLS: { [chainId: number]: string } = {
 const walletConnect = new WalletConnectConnector({
   bridge: "https://bridge.walletconnect.org",
   qrcode: true,
-  rpc: { 1: RPC_URLS[1], 5: RPC_URLS[5] },
+  infuraId: env.NEXT_PUBLIC_INFURA_ID,
 });
 
 export const connectors = {
