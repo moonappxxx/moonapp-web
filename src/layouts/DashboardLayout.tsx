@@ -4,10 +4,16 @@ import Link from "next/link";
 import Image from "next/image";
 import { useMediaQuery } from "react-responsive";
 
+import { env } from "../env/client.mjs";
+
 const ConnectWallet = dynamic(
   () => import("../features/wallet/ConnectWallet"),
   { ssr: false },
 );
+
+import ContractAddress from "../features/wallet/ContractAddress";
+import WatchAsset from "../features/wallet/WatchAsset";
+import useMetaMaskOnboarding from "../hooks/useMetaMaskOnboarding";
 
 import styles from "./DashboardLayout.module.scss";
 
@@ -19,6 +25,8 @@ const DashboardLayout: React.FC<OwnProps> = ({ children }) => {
   const isTabletOrMobile = useMediaQuery({
     query: "(max-width: 991px)",
   });
+
+  const { isMetaMaskInstalled } = useMetaMaskOnboarding();
 
   return (
     <div className={styles.wrapper}>
@@ -75,6 +83,15 @@ const DashboardLayout: React.FC<OwnProps> = ({ children }) => {
           <div className={styles.title}>
             MoonApp Claim portal for Pre-Seed &amp; Seed
           </div>
+          <div className={styles.contract}>
+            <ContractAddress address={env.NEXT_PUBLIC_TOKEN_ADDRESS} />
+            {isMetaMaskInstalled && (
+              <WatchAsset
+                address={env.NEXT_PUBLIC_TOKEN_ADDRESS}
+                symbol={env.NEXT_PUBLIC_TOKEN_SYMBOL}
+              />
+            )}
+          </div>
 
           {isTabletOrMobile && (
             <div className={styles["connect-wallet"]}>
@@ -106,4 +123,4 @@ const DashboardLayout: React.FC<OwnProps> = ({ children }) => {
   );
 };
 
-export default DashboardLayout;
+export default React.memo(DashboardLayout);

@@ -30,7 +30,7 @@ export default function useMetaMaskOnboarding() {
 
   async function startOnboarding() {
     const MetaMaskOnboarding = await import("@metamask/onboarding").then(
-      (m) => m.default
+      (m) => m.default,
     );
 
     onboarding.current = new MetaMaskOnboarding();
